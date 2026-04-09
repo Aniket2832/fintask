@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import Finance from './pages/Finance';
+import Landing from './pages/Landing';
 import useAuthStore from './store/authStore';
 
 const App = () => {
@@ -15,12 +16,13 @@ const App = () => {
     <BrowserRouter>
       {token && <Navbar />}
       <Routes>
+        <Route path="/" element={token ? <Navigate to="/dashboard" /> : <Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/tasks" element={<PrivateRoute><Tasks /></PrivateRoute>} />
         <Route path="/finance" element={<PrivateRoute><Finance /></PrivateRoute>} />
-        <Route path="*" element={<Navigate to={token ? '/dashboard' : '/login'} />} />
+        <Route path="*" element={<Navigate to={token ? '/dashboard' : '/'} />} />
       </Routes>
     </BrowserRouter>
   );
